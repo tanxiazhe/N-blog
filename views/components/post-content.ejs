@@ -16,9 +16,13 @@
         <div>
           <span class="tag"><%= post.created_at %></span>
           <span class="tag right">
-            <span>浏览(<%= post.pv || 0 %>)</span>
-            <span>留言(<%= post.commentsCount || 0 %>)</span>
-
+            <span>浏览(<%= post.pv %>)</span>
+          <form name ="thumbsUp" class="tag thumbsUp" method="post" action="/posts/<%= post._id %>/<%= post.like %>/1">                   
+            <input type="image" class="zan" src="/img/like.jpg" onclick="thumbsUp.submit();"/>(<span id="likeNum<%= post._id %>"><%= post.like %></span>)
+           
+          </form>   
+           
+           <span>留言(<%= post.commentsCount %>)</span>
             <% if (user && post.author._id && user._id.toString() === post.author._id.toString()) { %>
               <div class="ui inline dropdown">
                 <div class="text"></div>
@@ -30,9 +34,67 @@
               </div>
             <% } %>
 
-          </span>
+          </span> 
         </div>
       </div>
     </div>
   </div>
 </div>
+
+
+  <script type="text/javaScript">
+  function like(id){
+          // if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
+          //       xmlhttp = new XMLHttpRequest();
+          //   } else { // code for IE6, IE5
+          //       xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+          //   }
+
+          var flag = 0;
+          var likeNum = document.getElementById('likeNum'+id).innerText;
+          var oImg = document.getElementById('zan'+id);     
+          if(oImg.src.indexOf('/img/like.jpg')>0){
+                likeNum++;
+                flag= 1;
+          }else if(oImg.src.indexOf('/img/disLike.jpg')>0){
+                likeNum--;
+          }            
+   
+       
+          //  xmlhttp.open("POST", "/posts/" +id+"/"+likeNum+"/"+flag, false);
+          //  xmlhttp.send();
+          //   if (xmlhttp.status == 200 ) {
+          //    document.getElementById('likeNum'+id).innerText = likeNum;
+
+          //     if(oImg.src.indexOf('/img/like.jpg')>0){
+          //       oImg.src='/img/disLike.jpg';      
+          //     }else if(oImg.src.indexOf('/img/disLike.jpg')>0){
+          //           oImg.src='/img/like.jpg';
+          //     }       
+
+          //   }
+
+            var url0 = "/posts/" +id+"/"+likeNum+"/"+flag;          
+            $.ajax ({  
+              type: "post",
+              url: url0,
+              async: false,
+              success: function(res) {
+                document.getElementById('likeNum'+id).innerText = likeNum;
+
+                // if(oImg.src.indexOf('/img/like.jpg')>0){
+                //   oImg.src='/img/disLike.jpg';      
+                // }else if(oImg.src.indexOf('/img/disLike.jpg')>0){
+                //       oImg.src='/img/like.jpg';
+                // }      
+              },
+              error:function(exp){
+                var err = exp;
+                alert("error");
+              }
+          
+          });  
+      }
+
+  </script>
+  

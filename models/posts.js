@@ -92,6 +92,13 @@ module.exports = {
     return Post.update({ _id: postId }, { $set: data }).exec()
   },
 
+   // 通过文章 id 给 like 加 1
+   incLike: function incLike (postId) {
+    return Post
+      .update({ _id: postId }, { $inc: { like: 1 } })
+      .exec()
+  },
+
   // 通过文章 id 删除一篇文章
   delPostById: function delPostById (postId) {
     return Post.remove({ _id: postId })

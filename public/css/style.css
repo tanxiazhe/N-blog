@@ -76,3 +76,15 @@ a:hover {
 .post-content .tag.right a {
   color: #999;
 }
+
+input.zan {
+    width: 51%;
+    cursor: pointer;
+    margin-top: -40px;
+    margin-bottom: -6px;
+}
+form.tag.thumbsUp{
+    display: inline-block;
+    height: 15px;
+    width: 50px;
+}

@@ -3,3 +3,7 @@ config/*
 npm-debug.log
 node_modules
 coverage
+package-lock.json
+.vscode/settings.json
+.eslintrc.js
+.vscode/launch.json
