@@ -9,7 +9,7 @@ module.exports = {
   },
 
   // 通过文章 id 以及点赞的用户，删除一个点赞数
-  delLike: function delCommentById(postLike) {
+  delete: function delCommentById(postLike) {
     return PostLike.remove(postLike).exec();
   },
 

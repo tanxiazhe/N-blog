@@ -189,26 +189,46 @@ router.post('/:postId/:likeNum/:flag', checkLogin, function(req, res, next) {
     postId: postId
   }
 
-  PostLikeModel.getLike(count).then(
-    function(countRes){
-      if(countRes> 0 ){          
-          req.flash('success', '已经点过赞，不能重复哦~');         
-          res.status(204);
-          res.redirect('back');
-      }
-      else {
-        PostModel.incLike(postId)// like 加 1
-        .then(function () {          
-          PostLikeModel.create(postLike).then(function () {
-            req.flash('success', '点赞成功');
-            // 留言成功后跳转到上一页
+  if(flag === 1){
+    PostLikeModel.getLike(count).then(
+      function(countRes){
+        if(countRes> 0 ){          
+            req.flash('success', '已经点过赞，不能重复哦~');         
+            res.status(204);
             res.redirect('back');
+        }
+        else {
+          PostModel.incLike(postId)// like 加 1
+          .then(function () {          
+            PostLikeModel.create(postLike).then(function () {
+              req.flash('success', '点赞成功');
+              // 点赞成功后跳转到上一页
+              res.redirect('back');
+            }).catch(next);
           }).catch(next);
-        }).catch(next);
-      } 
+        } 
+      }).catch(next);
+  }
+  else{
+    PostLikeModel.getLike(count).then(
+      function(countRes){
+        if(countRes== 0 ){          
+            req.flash('success', '已经取消过赞，不能重复哦~');         
+            res.status(204);
+            res.redirect('back');
+        }
+        else {
+          PostModel.decLike(postId)// like 减 1
+          .then(function () {          
+            PostLikeModel.delete(postLike).then(function () {
+              req.flash('success', '取消成功');
+              // 取消成功后跳转到上一页
+              res.redirect('back');
+            }).catch(next);
+          }).catch(next);
+      }
     }).catch(next);
-
-  
+  }
 });
 
 module.exports = router;

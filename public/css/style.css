@@ -77,14 +77,32 @@ a:hover {
   color: #999;
 }
 
-input.zan {
+input.thumbsUpImg {
     width: 51%;
     cursor: pointer;
     margin-top: -40px;
     margin-bottom: -6px;
 }
-form.tag.thumbsUp{
+
+input.thumbsDownImg {
+  width: 106%;
+  cursor: pointer;
+  margin-top: -40px;
+  margin-bottom: -6px;
+  margin-left: -4px;
+}
+form.thumbsUp{
     display: inline-block;
-    height: 15px;
-    width: 50px;
+    height: 27px;
+    width: 48px;
+    margin-top: -40px;
+    margin-bottom: -6px;
+}
+
+form.thumbsDown{
+  display: inline-block;
+  height: 27px;
+  width: 27px;
+  margin-top: -40px;
+  margin-bottom: -6px;
 }
